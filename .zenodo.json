@@ -1,0 +1,31 @@
+{
+    "description": "<p>Authors: Sergey V.Voeykov, Oleg I.Berngardt, ISTP SB RAS, Russia</p>", 
+    "license": "other-open", 
+    "title": "berng/WTEC: WTEC v.1.0.1", 
+    "version": "v.1.0.1", 
+    "upload_type": "software", 
+    "publication_date": "2019-03-24", 
+    "creators": [
+       {
+            "affiliation": "ISTP SB RAS", 
+            "name": "Sergey V.Voeykov"
+        },
+        {
+            "affiliation": "ISTP SB RAS", 
+            "name": "Oleg I.Berngardt"
+        }
+    ], 
+    "access_right": "open", 
+    "related_identifiers": [
+        {
+            "scheme": "url", 
+            "identifier": "https://github.com/berng/WTEC/tree/v.1.0.1", 
+            "relation": "isSupplementTo"
+        }, 
+        {
+            "scheme": "doi", 
+            "identifier": "10.5281/zenodo.2604417", 
+            "relation": "isVersionOf"
+        }
+    ]
+}
