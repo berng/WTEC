@@ -1,0 +1,10 @@
+siteinfo.dat contains threshold values of 2nd differential of STEC, 
+required for correct filtering of the data. These values are different 
+for each station.
+
+GpsWTEC.dia contains configuration parameters, the most important is datway - 
+the path to directory with GNSS files.
+
+Uncomment -DWINDOWS in Makefile, if necessary
+
+

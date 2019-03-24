@@ -1,0 +1,122 @@
+GetWTEC
+
+Purpose of the program:
+The software calculates the WTEC index. 
+Wtec is a GNSS index (Variations of Vertical TEC index), 
+which is equal to mean TEC variation (with periods less than the 
+specified ones) amplitude for a single GPS/GLONASS site. 
+The user can made a multisite processing: for each site 
+software calculate corresponding index. The maximum duration 
+of the Wtec series is one year. The basic method of WTEC calculation 
+is described in [Voeykov S.V., Berngardt O.I., Shestakov N.V. 
+Geomagnetism and Aeronomy, 2016, Vol. 56, No. 2, pp. 219–228].
+
+Input data:
+The input data is the output files (so called dat-files) of the 
+tec-suite software by Ilya Zhivetiev (www.gnss-lab.org). The dat-files 
+contain total electron content calculated from different measurements. 
+In the dat-files among others the following columns should be presented: 
+tsn, el, az, tec.l1l2 (which are record number, elevation, azimuth, TEC 
+based on L1, L2 measurements).
+
+Files and directories included in the software package:
+1) Executable file – GetWTEC.
+2) Configuration file – GetWTEC.dia.
+3) Service directories – out, genout (will be created automatically).
+4) File with program description - README (this file).
+
+Configuration file (GetWTEC.dia).
+pssint.dia contains following configuration information: 
+__________________________________________________________________________
+e:\gps\dat\   	- datway – way to dat-files
+0  	  - crit_all =1 – processing of all sites
+LIST 	  - site – site name (if crit_all =0)
+2016 	  - year
+1  	  - daybeg - the first of the processed days
+366  	  - dayend - the last of the processed days
+300. 	  - hmax - height for calculating the coordinates of ionospheric points (km)
+10. 	  - highper - window for removing slow variations (minutes)
+15. 	  - gamcutoff – minimum elevation (deg)
+55  	  - prncutoff - the maximum number of satellites to process
+0  	  - GNSS_crit =0 – all satellites, =1 – GPS only, =2 – GLONASS only
+999 	  - GrossDir - "main" direction for processing, if =999 – common file only
+4  	  - NofDirs – number of azimuth sectors (no more than 4)
+__________________________________________________________________________
+
+‘datway’ – way to directory with input dat-files. 
+
+The ‘daybeg’ and  ‘dayend’ parameters define the limits of the 
+interval of processed  days (it means the days of the year). 
+
+If crit_all = 1 – all the sites found in the directory 
+[datway]\[year]\[daybeg] are processed. If crit_all = 0 – only the site 
+specified in the ‘site’ parameter is processed. 
+
+The parameter ‘hmax’ specifies the height for calculating the coordinates 
+of ionospheric points. 
+
+The ‘highper’ parameter specifies the window in minutes used to remove 
+slow variations by the moving average method. 
+
+The ‘gamcutoff’ parameter specifies the minimum value of the elevation 
+angle for satellites. 
+
+The ‘prncutoff’ parameter specifies the maximum number of satellites 
+whose data is used in processing. 
+
+The ‘GNSS_crit’ criterion determines which satellite systems will be 
+used (=0 – all satellites, =1 – GPS only, =2 – GLONASS only). 
+
+With the parameters ‘GrossDir’ and ‘NofDirs’, one can specify additional 
+output files with data in certain azimuth sectors relative to the processed 
+station. ‘NofDirs’ specifies the number of sectors (no more than 4). 
+‘GrossDir’ sets the reference center direction for the first sector. 
+If GrossDir = 999 – only the common file will be output.
+
+Operating procedure:
+1) Correct Makefile
+2) Specify the parameters for starting the program in the configuration file (GetWTEC.dia).
+3) Run the executable file (GetWTEC).
+4) After program stops, the output files will be located in the ‘genout’ 
+directory.
+
+Output data:
+The output files received as a result of the successful operation of the 
+program will be located in the directory genout\YYYY (YYYY – year). For 
+each processed site, a file is created with the name SSSSDDD_DDD_YYYYF_PPmin.dat. 
+SSSS – site name, DDD_DDD – limits of the interval of processed days, YYYY – year,
+PP – window used to remove slow variations, the symbol 'F' indicates that the file
+is common for all azimuths. If the ‘GrossDir’ parameter is set in the range from 0
+to 360, in addition to the common file for the site, some more files (according to
+‘NofDirs’ value) will be created with data divided by azimuth sectors. The names 
+of such files will look like SSSSDDD_DDD_YYYYAAA_PPmin.dat (AAA – center of azimuth 
+sector). All output files have the same structure. The first lines of output file 
+look like this:
+__________________________________________________________________________
+300	- height of F2-layer maximum
+ 10	- high filtering period, minutes
+ 15	- elevation cutoff
+0	 =0 - GPS/GLONASS, =1 - GPS, =2 - GLONASS
+999	- main direction
+  4	- number of directions
+tec_filt_aver - averaged through all prns filtered TEC variations
+rms - root mean square of TEC averaging
+Xaver, Yaver - average position of Ionospheric Pierce Point (km)
+N_of_Sats - number of satellites
+
+time_ut, tec_filt_aver, rms, Xaver, Yaver, N_of_Sats
+   0.0000   0.0000   0.0000   67.570   14.884 11
+   0.0083   0.0000   0.0000   68.378   15.365 11
+   0.0167   0.0056   0.0055   69.187   15.841 11
+__________________________________________________________________________
+
+The first 6 lines duplicate the values of the parameters ‘hmax’, ‘highper’, ‘gamcutoff’, 
+‘GNSS_crit’, ‘GrossDir’ and ‘NofDirs’ from the file pssint.dia. The following 4 lines 
+contain a description of the data columns in the file. ‘tec_filt_aver’ – Wtec data, 
+‘rms’ – data spread during averaging over satellites, ‘Xaver’, ‘Yaver’ – deviation of 
+the position of the average ionospheric point from the site in kilometers, ‘N_of_Sats’ 
+– number of satellites for averaging. The column ‘time_ut’ displays the current time 
+count in UT hours from the beginning of the first day ‘daybeg’.
+
+
+Directory ./data/ contains example input data necessary for testing the program

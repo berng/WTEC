@@ -1,0 +1,31 @@
+{
+    "description": "The software calculates the WTEC GNSS-index.", 
+    "license": "other-open", 
+    "title": "berng/GetWTEC: GetWTEC initial release", 
+    "version": "GetWTEC", 
+    "upload_type": "software", 
+    "publication_date": "2019-03-24", 
+    "creators": [
+        {
+            "affiliation": "ISTP SB RAS", 
+            "name": "Sergey V.Voeykov"
+        },
+        {
+            "affiliation": "ISTP SB RAS", 
+            "name": "Oleg I.Berngardt"
+        }
+   ], 
+    "access_right": "open", 
+    "related_identifiers": [
+        {
+            "scheme": "url", 
+            "identifier": "https://github.com/berng/GetWTEC/tree/GetWTEC", 
+            "relation": "isSupplementTo"
+        }, 
+        {
+            "scheme": "doi", 
+            "identifier": "10.5281/zenodo.2604415", 
+            "relation": "isVersionOf"
+        }
+    ]
+}
